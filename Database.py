@@ -23,7 +23,11 @@ class APIHandler(BaseHTTPRequestHandler):
     
     def do_POST(self):
         pathTratado = self.path.split('/')
-        
+        if pathTratado[1] != 'comprar':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+
 
 
 # Cria e inicializa o server do "banco de dados"
