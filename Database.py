@@ -23,6 +23,7 @@ class APIHandler(BaseHTTPRequestHandler):
     
     def do_POST(self):
         pathTratado = self.path.split('/')
+        
 
 
 # Cria e inicializa o server do "banco de dados"
