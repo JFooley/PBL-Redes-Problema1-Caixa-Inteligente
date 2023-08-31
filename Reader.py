@@ -1,21 +1,42 @@
-import mercury
+import json
 import sys
-from datetime import datetime
+import mercury
+import socket
 
-param = 2300
+def lerTags(socket):
+    epcs = map(lambda tag: tag, reader.read())
 
-if len(sys.argv) > 1:
-        param = int(sys.argv[1])
+    for tag in epcs:
+        tagDecoded = tag.epc.decode()
+        print(tagDecoded)
+        socket.send(tagDecoded.encode())
+
+# Configurações do servidor
+host = '172.16.103.0' 
+port = 4321
+
+# Cria o socket e associa a porta e host
+socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+socketServer.bind((host, port))
+socketServer.listen()
 
 # configura a leitura na porta serial onde esta o sensor
+param = 2300
+if len(sys.argv) > 1:
+    param = int(sys.argv[1])
+
 reader = mercury.Reader("tmr:///dev/ttyUSB0")
-
-# para funcionar use sempre a regiao "NA2" (Americas)
 reader.set_region("NA2")
-
-# nao altere a potencia do sinal para nao prejudicar a placa
 reader.set_read_plan([1], "GEN2", read_power=param)
 
-epcs = map(lambda tag: tag, reader.read())
-for tag in epcs:
-    print(tag.epc, tag.read_count, tag.rssi, datetime.fromtimestamp(tag.timestamp))
+reader.connect()
+
+while True:
+    socketDiretoCliente, enderecoCliente = socketServer.accept()
+
+    lerTags(socketDiretoCliente)
+
+    socketDiretoCliente.close()
+
+
+
