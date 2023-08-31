@@ -18,6 +18,7 @@ class APIHandler(BaseHTTPRequestHandler):
             response = caixas
             self.wfile.write(bytes(json.dumps(response), 'utf-8'))
 
+        # Rota para listar os produtos
         elif pathTratado[1] != '':
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
@@ -30,6 +31,7 @@ class APIHandler(BaseHTTPRequestHandler):
                 response = 'Produto inexistente'
                 self.wfile.write(bytes(json.dumps(response), 'utf-8'))
 
+        # Rota que lista todo o database
         else:
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
@@ -41,6 +43,7 @@ class APIHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         pathTratado = self.path.split('/')
 
+        # Recebe corretamente a body enviada
         datasize = self.headers['Content-Length']
         dadosRecebidos = self.rfile.read(int(datasize))
         jsonRecebido = json.loads(dadosRecebidos.decode())
