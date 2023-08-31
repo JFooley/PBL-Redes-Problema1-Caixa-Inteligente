@@ -9,31 +9,36 @@ def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
         while True:            
             # Recebe
             data = socketDiretoCliente.recv(1024)
-            codigo = data.decode()
-            print(f'{enderecoCliente}->: {codigo}')
+            request : str = data.decode()
+            requestJson : dict = json.loads(request)
 
-            # Chama a API
-            respostaAPI = requests.get('http://localhost:8000/' + codigo)
-            
-            if respostaAPI.status_code == 200:
+            print(f'{enderecoCliente}->: {requestJson["type"]} : {requestJson["content"]}')
+
+            if requestJson["type"] == 'comprar':
+                respostaAPI = requests.post('http://localhost:8000/comprar', json=requestJson["content"])
+            else:
+                respostaAPI = requests.get('http://localhost:8000/' + requestJson["content"])
+
+            if respostaAPI.status_code == 200 or respostaAPI.status_code == 201:
                 responseJson = respostaAPI.json()
                 dataResponse = json.dumps(responseJson)
                 socketDiretoCliente.send(dataResponse.encode())
             else:
                 erroMSG = 'Erro na requisição'
                 socketDiretoCliente.send(erroMSG.encode())
+            
     except:
         print(f'Conexão com {enderecoCliente} interrompida')
     
 # Configurações do servidor
-host = '26.191.37.90'  
+host = socket.gethostbyname(socket.gethostname()) 
 port = 12345
 
 # Cria o socket e associa a porta e host
 socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 socketServer.bind((host, port))
 socketServer.listen()
-print('Servidor iniciado')
+print('Servidor iniciado em', host)
 
 threadsClientes = []
 
