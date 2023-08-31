@@ -15,7 +15,8 @@ def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
             # Adiciona a conexão na lista
             conexão = {enderecoCliente[0] : True}
             requests.post('http://localhost:8000/update-caixa', json=conexão)
-
+            
+        # Trata o caso em que o caixa está bloqueado
         elif conexoesJson[enderecoCliente[0]] == False:
             refuseMSG = 'Caixa bloqueado!'
             socketDiretoCliente.send(refuseMSG.encode())
