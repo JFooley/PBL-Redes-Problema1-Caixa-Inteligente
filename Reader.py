@@ -6,14 +6,17 @@ import socket
 def lerTags(socket):
     epcs = map(lambda tag: tag, reader.read())
 
+    tags = []
+
     for tag in epcs:
-        tagDecoded = tag.epc.decode()
-        print(tagDecoded)
-        socket.send(tagDecoded.encode())
+        tags.append(tag.epc.decode())
+        
+    socket.send(json.dumps(tags).encode())
 
 # Configurações do servidor
-host = '172.16.103.0' 
-port = 4321
+# host = '172.16.103.0' 
+host = '26.191.37.90'
+port = 2598
 
 # Cria o socket e associa a porta e host
 socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -25,16 +28,19 @@ param = 2300
 if len(sys.argv) > 1:
     param = int(sys.argv[1])
 
-reader = mercury.Reader("tmr:///dev/ttyUSB0")
-reader.set_region("NA2")
-reader.set_read_plan([1], "GEN2", read_power=param)
-
-reader.connect()
+# reader = mercury.Reader("tmr:///dev/ttyUSB0")
+# reader.set_region("NA2")
+# reader.set_read_plan([1], "GEN2", read_power=param)
+# reader.connect()
 
 while True:
     socketDiretoCliente, enderecoCliente = socketServer.accept()
 
-    lerTags(socketDiretoCliente)
+    tags = ['1', '2', '3', '5', 'compra']
+    
+    socketDiretoCliente.send(json.dumps(tags).encode())
+
+    # lerTags(socketDiretoCliente)
 
     socketDiretoCliente.close()
 

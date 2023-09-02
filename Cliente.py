@@ -1,87 +1,93 @@
 import socket
-import threading
 import json
 import os
 
 carrinho = []
 
+def ouvirResponse():
+    resposta = socketServidor.recv(1024).decode()
+
+    os.system('cls')
+
+    if 'nome' in resposta:
+        carrinho.append(json.loads(resposta))
+    else:
+        print(resposta + "\n")
+
+    total = 0
+    print('Carrinho: ')
+    for item in carrinho:
+        print(item['nome'])
+        total += item['preco']
+    print(f'----------------------\nTotal: {total} R$')
+
 # Método principal do cliente, que envia as solicitações
-def clienteSender(socketCliente : socket):
+def clienteRoutine():
     loop = True
     try:
         while loop:
-            entrada = input()
+            entrada = input("1- Comprar\n2- Ler produtos")
 
-            dictResponse = {'type':'codigo', 'content':''}
+            dictResponse = {'type':'', 'content':''}
 
-            # Fecha a comunicação
-            if entrada.lower() == 'sair':
-                loop = False
-                continue
-            elif entrada.lower() == 'comprar':
+            if entrada.lower() == '1':
                 dictResponse['type'] = 'comprar'
                 dictResponse['content'] = carrinho
 
                 entradaJson = json.dumps(dictResponse)
-                socketCliente.send(entradaJson.encode())
+                socketServidor.send(entradaJson.encode())
                 
                 carrinho.clear()
-            else:
-                dictResponse['type'] = 'codigo'
-                dictResponse['content'] = entrada
 
-                entradaJson = json.dumps(dictResponse)
-                socketCliente.send(entradaJson.encode())
+                ouvirResponse()
+
+            elif entrada.lower() == '2':                
+                dictResponse['type'] = 'codigo'
+
+                try:
+                    socketRFID = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+                    socketRFID.connect((hostRFID, portaRFID))
+                    print(f'Lendo o leitor {hostRFID}{portaRFID}')
+
+                    tagsListaCru = socketRFID.recv(1024).decode()
+                    tagsLista = json.loads(tagsListaCru)
+
+                    for tag in tagsLista:
+                        dictResponse['content'] = tag
+                        
+                        entradaJson = json.dumps(dictResponse)
+                        socketServidor.send(entradaJson.encode())
+
+                        ouvirResponse()
+
+                    socketRFID.close()
+                    
+                except Exception as e:
+                    print(e)
 
     except socket.error as e:
         print(e)
     finally:
         print('Conexão encerrada')
-        socketCliente.close()
-
-# Método que recebe e mostra nas telas as respostas
-def clienteListner(socketCliente, host):
-    loop = True
-    try:
-        while loop:
-            # Resposta         
-            resposta = socketCliente.recv(1024).decode()
-            
-            os.system('cls')
-
-            if 'nome' in resposta:
-                carrinho.append(json.loads(resposta))
-            else:
-                print(resposta + "\n")
-
-            total = 0
-            print('Carrinho: ')
-            for item in carrinho:
-                print(item['nome'])
-                total += item['preco']
-            print(f'----------------------\nTotal: {total} R$')
-
-
-    except socket.error as e:
-        print(e)
-    finally:
-        socketCliente.close()
+        socketServidor.close()
 
 # Configurações do servidor
-host = input('Digite o host do servidor: ')
-port = 12345
+hostServidor = input('Digite o hostServidor do servidor: ')
+portaServidor = 12345
 
-socketCliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# hostRFID = '172.16.103.0'
+hostRFID = '26.191.37.90'
+portaRFID = 2598
+
+socketServidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:
-    # Conecta no socket
-    socketCliente.connect((host, port))
-    print(f'Cliente conectado ao server {host}{port}')
-
-    # Chama a função do cliente
-    threadClienteListner = threading.Thread(target=clienteListner, args=(socketCliente, host))
-    threadClienteListner.start()
-    clienteSender(socketCliente)
+    # Conecta nos sockets
+    socketServidor.connect((hostServidor, portaServidor))
+    print(f'Cliente conectado ao server {hostServidor}{portaServidor}')
+    
+    clienteRoutine()
 
 except socket.error as e:
     print(e)
