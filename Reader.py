@@ -3,20 +3,24 @@ import sys
 import mercury
 import socket
 
-def lerTags(socket):
-    epcs = map(lambda tag: tag, reader.read())
+# def lerTags(socket):
+#     epcs = map(lambda tag: tag, reader.read())
 
-    tags = []
+#     tags = []
 
-    for tag in epcs:
-        tags.append(tag.epc.decode())
+#     for tag in epcs:
+#         tags.append(tag.epc.decode())
         
-    socket.send(json.dumps(tags).encode())
+#     socket.send(json.dumps(tags).encode())
+
 
 # Configurações do servidor
 # host = '172.16.103.0' 
-host = '26.191.37.90'
 port = 2598
+
+### PROVISÓRIO PARA TESTE ###
+host = '26.191.37.90'
+### PROVISÓRIO PARA TESTE ###
 
 # Cria o socket e associa a porta e host
 socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -36,9 +40,10 @@ if len(sys.argv) > 1:
 while True:
     socketDiretoCliente, enderecoCliente = socketServer.accept()
 
+    ### PROVISÓRIO PARA TESTE ###
     tags = ['1', '2', '3', '5', 'compra']
-    
     socketDiretoCliente.send(json.dumps(tags).encode())
+    ### PROVISÓRIO PARA TESTE ###
 
     # lerTags(socketDiretoCliente)
 
