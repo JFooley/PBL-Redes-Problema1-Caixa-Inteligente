@@ -59,6 +59,9 @@ class APIHandler(BaseHTTPRequestHandler):
                     if dadosTemp[item['codigo']]['stock'] > 0:
                         dadosTemp[item['codigo']]['stock'] -= 1
                     else:
+                        self.send_response(201)
+                        self.send_header('Content-type', 'application/json')
+                        self.end_headers()
                         response = 'Estoque insuficiente!'
                         self.wfile.write(bytes(json.dumps(response), 'utf-8'))
                         return

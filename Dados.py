@@ -1,9 +1,4 @@
 dados = {
-    '1': {'nome' : 'Arroz'  , 'codigo' : '1', 'preco' : 5.50, 'stock' : 10},
-    '2': {'nome' : 'Carne'  , 'codigo' : '2', 'preco' : 20.0, 'stock' : 10},
-    '3': {'nome' : 'Leite'  , 'codigo' : '3', 'preco' : 6.00, 'stock' : 10},
-    '4': {'nome' : 'Ovo'    , 'codigo' : '4', 'preco' : 0.50, 'stock' : 10},
-    '5': {'nome' : 'Feijão' , 'codigo' : '5', 'preco' : 9.50, 'stock' : 10},
     'E20000172211010218905459': {'nome' : 'Arroz'  , 'codigo' : 'E20000172211010218905459', 'preco' : 5.50, 'stock' : 10},
     'E20000172211010118905454': {'nome' : 'Carne'  , 'codigo' : 'E20000172211010118905454', 'preco' : 20.0, 'stock' : 10},
     'E20000172211011718905474': {'nome' : 'Leite'  , 'codigo' : 'E20000172211011718905474', 'preco' : 6.00, 'stock' : 10},

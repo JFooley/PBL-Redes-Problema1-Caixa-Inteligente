@@ -32,12 +32,18 @@ def clienteRoutine():
 
             if entrada.lower() == '1':
                 dictResponse['type'] = 'comprar'
-                dictResponse['content'] = carrinho
+                dictResponse['content'] = len(json.dumps(carrinho))
 
+                # Envia o tamanho dos dados do carrinho
                 entradaJson = json.dumps(dictResponse)
                 socketServidor.send(entradaJson.encode())
-                
-                carrinho.clear()
+
+                # Espera a confirmação do server e envia o carrinho
+                respostaCompra = socketServidor.recv(1024).decode()
+                if respostaCompra == '100':
+                    carrinhoJson = json.dumps(carrinho)
+                    socketServidor.sendall(carrinhoJson.encode())
+                    carrinho.clear()
 
                 ouvirResponse()
 
@@ -66,7 +72,7 @@ def clienteRoutine():
                 except Exception as e:
                     print(e)
 
-    except socket.error as e:
+    except Exception as e:
         print(e)
     finally:
         print('Conexão encerrada')
