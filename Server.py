@@ -82,6 +82,3 @@ while loop:
     threadCliente.start()
 
     threadsClientes.append(threadCliente)
-
-
-

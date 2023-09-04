@@ -52,6 +52,3 @@ while True:
     # lerTags(socketDiretoCliente)
 
     socketDiretoCliente.close()
-
-
-
