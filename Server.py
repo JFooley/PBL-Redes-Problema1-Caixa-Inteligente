@@ -2,7 +2,7 @@ import json
 import requests
 import socket
 import threading
-from Dados import portaServidor, hostServidor
+from Config import portaServidor, hostServidor
 
 # Thread para cuidar de cada cliente individualmente
 def handleSolicitacoes(socketDiretoCliente, enderecoCliente):

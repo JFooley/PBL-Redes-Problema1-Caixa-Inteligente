@@ -1,14 +1,14 @@
 import socket
 import json
 import os
-from Dados import hostRFID, portaRFID, portaServidor
+from Config import hostRFID, portaRFID, portaServidor
 
 carrinho = []
 
 def ouvirResponse():
     resposta = socketServidor.recv(1024).decode()
 
-    os.system('cls')
+    os.system('clear')
 
     if 'nome' in resposta:
         carrinho.append(json.loads(resposta))

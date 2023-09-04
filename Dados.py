@@ -11,10 +11,3 @@ dados = {
 }
 
 caixas = {}
-
-# hostRFID = '172.16.103.0'
-hostRFID = '192.168.43.210'
-portaRFID = 2598
-
-hostServidor = '192.168.43.210'
-portaServidor = 1234
