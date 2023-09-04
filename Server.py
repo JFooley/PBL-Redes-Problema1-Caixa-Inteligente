@@ -2,7 +2,7 @@ import json
 import requests
 import socket
 import threading
-from Dados import portaServidor
+from Dados import portaServidor, hostServidor
 
 # Thread para cuidar de cada cliente individualmente
 def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
@@ -58,16 +58,13 @@ def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
 
     except Exception as e:
         print(f'Conexão com {enderecoCliente} interrompida devido a:')
-        print(e)
-    
-# Configurações do servidor
-host = socket.gethostbyname(socket.gethostname()) 
+        print(e) 
 
 # Cria o socket e associa a portaServidora e host
 socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socketServer.bind((host, portaServidor))
+socketServer.bind((hostServidor, portaServidor))
 socketServer.listen()
-print('Servidor iniciado em', host)
+print('Servidor iniciado em', hostServidor)
 
 threadsClientes = []
 
