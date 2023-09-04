@@ -6,12 +6,9 @@ from Dados import hostRFID, portaRFID
 
 # def lerTags(socket):
 #     epcs = map(lambda tag: tag, reader.read())
-
 #     tags = []
-
 #     for tag in epcs:
 #         tags.append(tag.epc.decode())
-        
 #     socket.send(json.dumps(tags).encode())
 
 # Cria o socket e associa a porta e host
