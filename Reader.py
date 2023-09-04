@@ -41,7 +41,11 @@ while True:
     socketDiretoCliente, enderecoCliente = socketServer.accept()
 
     ### PROVISÓRIO PARA TESTE ###
-    tags = ['1', '2', '3', '5', 'compra']
+    tags = ['E20000172211010218905459',
+            'E20000172211010118905454',
+            'E20000172211011718905474',
+            'E2000017221101321890548C',
+            'E2000017221101241890547C']
     socketDiretoCliente.send(json.dumps(tags).encode())
     ### PROVISÓRIO PARA TESTE ###
 
