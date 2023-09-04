@@ -11,3 +11,9 @@ dados = {
 }
 
 caixas = {}
+
+# hostRFID = '172.16.103.0'
+hostRFID = '26.191.37.90'
+portaRFID = 2598
+
+portaServidor = 1234

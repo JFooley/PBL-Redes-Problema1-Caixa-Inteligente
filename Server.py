@@ -2,6 +2,7 @@ import json
 import requests
 import socket
 import threading
+from Dados import portaServidor
 
 # Thread para cuidar de cada cliente individualmente
 def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
@@ -61,11 +62,10 @@ def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
     
 # Configurações do servidor
 host = socket.gethostbyname(socket.gethostname()) 
-port = 12345
 
-# Cria o socket e associa a porta e host
+# Cria o socket e associa a portaServidora e host
 socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socketServer.bind((host, port))
+socketServer.bind((host, portaServidor))
 socketServer.listen()
 print('Servidor iniciado em', host)
 

@@ -1,6 +1,7 @@
 import socket
 import json
 import os
+from Dados import hostRFID, portaRFID, portaServidor
 
 carrinho = []
 
@@ -80,11 +81,6 @@ def clienteRoutine():
 
 # Configurações do servidor
 hostServidor = input('Digite o hostServidor do servidor: ')
-portaServidor = 12345
-
-# hostRFID = '172.16.103.0'
-hostRFID = '26.191.37.90'
-portaRFID = 2598
 
 socketServidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
