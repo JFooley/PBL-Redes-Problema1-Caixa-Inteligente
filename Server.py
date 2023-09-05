@@ -2,19 +2,19 @@ import json
 import requests
 import socket
 import threading
-from Config import portaServidor, hostServidor
+from Config import portaServidor, hostServidor, ipDatabase
 
 # Thread para cuidar de cada cliente individualmente
 def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
     try:
         # Busca todas as conexões atuais
-        conexoes = requests.get('http://localhost:8000/caixas')
+        conexoes = requests.get(ipDatabase + '/caixas')
         conexoesJson = conexoes.json()
 
         # Verifica se aquela conexão não existe na lista
         if enderecoCliente[0] not in list(conexoesJson.keys()):
             conexão = {enderecoCliente[0] : True}
-            requests.post('http://localhost:8000/update-caixa', json=conexão)
+            requests.post(ipDatabase + '/update-caixa', json=conexão)
             
         # Trata o caso em que o caixa está bloqueado
         elif conexoesJson[enderecoCliente[0]] == False:
@@ -44,9 +44,9 @@ def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
                     print(f'{enderecoCliente}->: {requestJson["type"]} : {requestContent}')
                 
                 requestContentJson = json.loads(requestContent)
-                respostaAPI = requests.post('http://localhost:8000/comprar', json=requestContentJson)
+                respostaAPI = requests.post(ipDatabase + '/comprar', json=requestContentJson)
             else:
-                respostaAPI = requests.get('http://localhost:8000/' + requestJson["content"])
+                respostaAPI = requests.get(ipDatabase + '/' + requestJson["content"])
 
             if respostaAPI.status_code == 200 or respostaAPI.status_code == 201:
                 responseJson = respostaAPI.json()

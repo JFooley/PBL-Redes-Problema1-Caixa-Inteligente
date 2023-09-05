@@ -3,7 +3,6 @@ import json
 import threading
 import copy
 from Dados import caixas, dados
-from Config import ipDatabase
 
 lock = threading.Lock()
 
@@ -85,6 +84,6 @@ class APIHandler(BaseHTTPRequestHandler):
             
 # Cria e inicializa o server do "banco de dados"
 print('Database iniciado')
-server_address = (ipDatabase, 8000)
+server_address = ('', 8000)
 serverHTTP = HTTPServer(server_address, APIHandler)
 serverHTTP.serve_forever()
