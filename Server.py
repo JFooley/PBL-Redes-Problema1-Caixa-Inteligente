@@ -8,13 +8,15 @@ from Config import portaServidor, hostServidor, ipDatabase
 def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
     try:
         # Busca todas as conexões atuais
-        conexoes = requests.get(ipDatabase + '/caixas')
+        url = ipDatabase + 'caixas'
+        print(url)
+        conexoes = requests.get(url)
         conexoesJson = conexoes.json()
 
         # Verifica se aquela conexão não existe na lista
         if enderecoCliente[0] not in list(conexoesJson.keys()):
             conexão = {enderecoCliente[0] : True}
-            requests.post(ipDatabase + '/update-caixa', json=conexão)
+            requests.post(ipDatabase + 'update-caixa', json=conexão)
             
         # Trata o caso em que o caixa está bloqueado
         elif conexoesJson[enderecoCliente[0]] == False:
@@ -44,9 +46,9 @@ def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
                     print(f'{enderecoCliente}->: {requestJson["type"]} : {requestContent}')
                 
                 requestContentJson = json.loads(requestContent)
-                respostaAPI = requests.post(ipDatabase + '/comprar', json=requestContentJson)
+                respostaAPI = requests.post(ipDatabase + 'comprar', json=requestContentJson)
             else:
-                respostaAPI = requests.get(ipDatabase + '/' + requestJson["content"])
+                respostaAPI = requests.get(ipDatabase + requestJson["content"])
 
             if respostaAPI.status_code == 200 or respostaAPI.status_code == 201:
                 responseJson = respostaAPI.json()

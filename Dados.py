@@ -11,3 +11,5 @@ dados = {
 }
 
 caixas = {}
+
+carrinhos = {}

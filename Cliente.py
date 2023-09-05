@@ -5,6 +5,26 @@ from Config import hostRFID, portaRFID, portaServidor
 
 carrinho = []
 
+def mandarCarrinho(args : str):
+    dictUpdate = {'type':'', 'content':''}
+
+    dictUpdate['type'] = args
+    dictUpdate['content'] = len(json.dumps(carrinho))
+
+    # Envia o tamanho dos dados do carrinho
+    entradaJson = json.dumps(dictUpdate)
+    socketServidor.send(entradaJson.encode())
+
+    # Espera a confirmação do server e envia o carrinho
+    respostaCompra = socketServidor.recv(1024).decode()
+    if respostaCompra == '100':
+        carrinhoJson = json.dumps(carrinho)
+        socketServidor.sendall(carrinhoJson.encode())
+
+        if args == "comprar":
+            carrinho.clear()
+
+
 def ouvirResponse():
     resposta = socketServidor.recv(1024).decode()
 
@@ -32,20 +52,7 @@ def clienteRoutine():
             dictResponse = {'type':'', 'content':''}
 
             if entrada.lower() == '1':
-                dictResponse['type'] = 'comprar'
-                dictResponse['content'] = len(json.dumps(carrinho))
-
-                # Envia o tamanho dos dados do carrinho
-                entradaJson = json.dumps(dictResponse)
-                socketServidor.send(entradaJson.encode())
-
-                # Espera a confirmação do server e envia o carrinho
-                respostaCompra = socketServidor.recv(1024).decode()
-                if respostaCompra == '100':
-                    carrinhoJson = json.dumps(carrinho)
-                    socketServidor.sendall(carrinhoJson.encode())
-                    carrinho.clear()
-
+                mandarCarrinho('comprar')
                 ouvirResponse()
 
             elif entrada.lower() == '2':                
@@ -69,7 +76,7 @@ def clienteRoutine():
                         ouvirResponse()
 
                     socketRFID.close()
-                    
+
                 except Exception as e:
                     print(e)
 

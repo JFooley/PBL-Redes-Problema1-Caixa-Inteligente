@@ -29,15 +29,15 @@ param = 2300
 if len(sys.argv) > 1:
     param = int(sys.argv[1])
 
-reader = mercury.Reader("tmr:///dev/ttyUSB0")
-reader.set_region("NA2")
-reader.set_read_plan([1], "GEN2", read_power=param)
+# reader = mercury.Reader("tmr:///dev/ttyUSB0")
+# reader.set_region("NA2")
+# reader.set_read_plan([1], "GEN2", read_power=param)
 
 while True:
     socketDiretoCliente, enderecoCliente = socketServer.accept()
 
-    # leituraTeste(socketDiretoCliente)
+    leituraTeste(socketDiretoCliente)
 
-    lerTags(socketDiretoCliente)
+    # lerTags(socketDiretoCliente)
 
     socketDiretoCliente.close()
