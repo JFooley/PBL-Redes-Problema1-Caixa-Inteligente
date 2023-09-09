@@ -21,9 +21,15 @@ param = 2300
 if len(sys.argv) > 1:
     param = int(sys.argv[1])
 
+print(f'Servidor do reader iniciado em {hostRFIDTeste}:{portaRFID}')
+
 while True:
     socketDiretoCliente, enderecoCliente = socketServer.accept()
 
+    print('Leitura iniciada')
+
     leituraTeste(socketDiretoCliente)
+
+    print('Leitura finalizada')
 
     socketDiretoCliente.close()

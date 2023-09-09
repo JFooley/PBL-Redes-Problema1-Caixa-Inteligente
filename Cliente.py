@@ -1,14 +1,12 @@
 import socket
 import json
 import os
-from Config import hostRFID, portaRFID, portaServidor
+from Config import hostRFIDcliente, portaRFID, portaServidor
 
 carrinho = []
 
 def mandarCarrinho(args : str):
-    dictUpdate = {'type':'', 'content':''}
-
-    dictUpdate['type'] = args
+    dictUpdate = {'type': args, 'content':''}
     dictUpdate['content'] = len(json.dumps(carrinho))
 
     # Envia o tamanho dos dados do carrinho
@@ -21,13 +19,10 @@ def mandarCarrinho(args : str):
         carrinhoJson = json.dumps(carrinho)
         socketServidor.sendall(carrinhoJson.encode())
 
-        if args == "comprar":
-            carrinho.clear()
-
-
 def ouvirResponse():
     resposta = socketServidor.recv(1024).decode()
 
+    os.system('cls')
     os.system('clear')
 
     if 'nome' in resposta:
@@ -53,6 +48,7 @@ def clienteRoutine():
 
             if entrada.lower() == '1':
                 mandarCarrinho('comprar')
+                carrinho.clear()
                 ouvirResponse()
 
             elif entrada.lower() == '2':                
@@ -61,8 +57,8 @@ def clienteRoutine():
                 try:
                     socketRFID = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-                    socketRFID.connect((hostRFID, portaRFID))
-                    print(f'Lendo o leitor {hostRFID}{portaRFID}')
+                    socketRFID.connect((hostRFIDcliente, portaRFID))
+                    print(f'Lendo o leitor {hostRFIDcliente}{portaRFID}')
 
                     tagsListaCru = socketRFID.recv(1024).decode()
                     tagsLista = json.loads(tagsListaCru)
@@ -74,8 +70,11 @@ def clienteRoutine():
                         socketServidor.send(entradaJson.encode())
 
                         ouvirResponse()
-
+                    
                     socketRFID.close()
+
+                    mandarCarrinho('update-carrinho')
+                    ouvirResponse()
 
                 except Exception as e:
                     print(e)

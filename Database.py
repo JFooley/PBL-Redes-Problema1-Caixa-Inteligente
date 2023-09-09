@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import threading
 import copy
-from Dados import caixas, dados
+from Dados import caixas, dados, carrinhos
 
 lock = threading.Lock()
 
@@ -17,6 +17,15 @@ class APIHandler(BaseHTTPRequestHandler):
             self.end_headers()
 
             response = caixas
+            self.wfile.write(bytes(json.dumps(response), 'utf-8'))
+
+        # Rota que retorna os caixas e seu status
+        elif pathTratado[1] == 'carrinhos':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+
+            response = carrinhos
             self.wfile.write(bytes(json.dumps(response), 'utf-8'))
 
         # Rota para listar os produtos
@@ -77,10 +86,20 @@ class APIHandler(BaseHTTPRequestHandler):
             with lock:
                 caixas.update(jsonRecebido)
 
-            self.send_response(201)
+            self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
+        
+        # Rota que atualiza o carrinho 
+        elif pathTratado[1] == 'update-carrinho':
+            with lock:
+                carrinhos.update(jsonRecebido)
 
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            response = 'Teste update'
+            self.wfile.write(bytes(json.dumps(response), 'utf-8'))
             
 # Cria e inicializa o server do "banco de dados"
 print('Database iniciado')
