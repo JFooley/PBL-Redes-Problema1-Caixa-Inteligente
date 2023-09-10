@@ -15,3 +15,6 @@ caixas = {}
 
 # {'ip' : [carrinho]}
 carrinhos = {}
+
+# {'data' : dataHoje, 'carrinho' : carrinho}
+compras = []

@@ -5,6 +5,7 @@ from Config import hostRFIDcliente, portaRFID, portaServidor
 
 carrinho = []
 
+# Envia todo o carrinho local do cliente para o server
 def mandarCarrinho(args : str):
     dictUpdate = {'type': args, 'content':''}
     dictUpdate['content'] = len(json.dumps(carrinho))
@@ -19,6 +20,7 @@ def mandarCarrinho(args : str):
         carrinhoJson = json.dumps(carrinho)
         socketServidor.sendall(carrinhoJson.encode())
 
+# Ouve a resposta do server
 def ouvirResponse():
     resposta = socketServidor.recv(1024).decode()
 
@@ -46,20 +48,22 @@ def clienteRoutine():
 
             dictResponse = {'type':'', 'content':''}
 
+            # Comprar
             if entrada.lower() == '1':
                 mandarCarrinho('comprar')
                 carrinho.clear()
                 ouvirResponse()
 
+            # Ler o sensor
             elif entrada.lower() == '2':                
                 dictResponse['type'] = 'codigo'
 
                 try:
+                    # Se conecta ao sensor e realiza a leitura
                     socketRFID = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
                     socketRFID.connect((hostRFIDcliente, portaRFID))
-                    print(f'Lendo o leitor {hostRFIDcliente}{portaRFID}')
-
+                    
                     tagsListaCru = socketRFID.recv(1024).decode()
                     tagsLista = json.loads(tagsListaCru)
 
@@ -73,6 +77,7 @@ def clienteRoutine():
                     
                     socketRFID.close()
 
+                    # Atualiza o estado do carrinho no DB
                     mandarCarrinho('update-carrinho')
                     ouvirResponse()
 

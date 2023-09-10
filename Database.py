@@ -2,7 +2,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import threading
 import copy
-from Dados import caixas, dados, carrinhos
+import datetime as date
+from Dados import caixas, dados, carrinhos, compras
 
 lock = threading.Lock()
 
@@ -26,6 +27,15 @@ class APIHandler(BaseHTTPRequestHandler):
             self.end_headers()
 
             response = carrinhos
+            self.wfile.write(bytes(json.dumps(response), 'utf-8'))
+
+        # Rota para listar o histórico de compras
+        elif pathTratado[1] == 'compras':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+
+            response = compras
             self.wfile.write(bytes(json.dumps(response), 'utf-8'))
 
         # Rota para listar os produtos
@@ -61,7 +71,8 @@ class APIHandler(BaseHTTPRequestHandler):
         # Rota que realiza a compra
         if pathTratado[1] == 'comprar':
             with lock:
-                tempDados = copy.deepcopy(dados)
+                # Verifica se a compra é possivel
+                tempDados = copy.deepcopy(dados) 
                 for item in jsonRecebido:
                     if tempDados[item['codigo']]['stock'] > 0:
                         tempDados[item['codigo']]['stock'] -= 1
@@ -72,8 +83,14 @@ class APIHandler(BaseHTTPRequestHandler):
                         response = 'Estoque insuficiente!'
                         self.wfile.write(bytes(json.dumps(response), 'utf-8'))
                         return
-                
+                    
+                # Confirma a compra
                 dados.update(tempDados)
+
+                # Salva a compra no histórico
+                dataHoje = date.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                compra = {'data' : dataHoje, 'carrinho' : jsonRecebido}
+                compras.append(compra)
 
             self.send_response(201)
             self.send_header('Content-type', 'application/json')
