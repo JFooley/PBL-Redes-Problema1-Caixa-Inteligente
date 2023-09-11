@@ -103,6 +103,14 @@ O caixa
 
 # 5. Referencias
 <p style="text-align: justify;">
-  a
+  threading — Thread-based parallelism. Python Software Foundation. 2023. Disponível em: https://docs.python.org/3/library/threading.html. Acesso em: 22 de agosto de 2023.
+
+  http.server — HTTP servers. Python Software Foundation. 2023. Disponível em: https://docs.python.org/3/library/http.server.html. Acesso em: 22 de agosto de 2023.
+
+  json — Codificador e decodificador JSON. Python Software Foundation. 2023. Disponível em: https://docs.python.org/pt-br/3/library/json.html Acesso em: 24 de agosto de 2023.
+
+  socket — Interface de rede de baixo nível. Python Software Foundation. 2023. Disponível em: https://docs.python.org/pt-br/3/library/socket.html Acesso em: 24 de agosto de 2023.
+
+  Requests: HTTP for Humans. Requests. 2023. Disponível em: https://requests.readthedocs.io/en/latest/ Acesso em: 24 de agosto de 2023.
 </p>
 
