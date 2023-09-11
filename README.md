@@ -49,13 +49,16 @@
   <li>"/carrinhos" - Lista os caixas e os seus respectivos carrinhos no momento da requisição</li>
   <li>"/caixas" - Lista todos os caixas e seus estados de bloqueio</li>
 </ol>
+
   - POST
 <ol>
   <li>"/comprar" - Verifica se é possivel, realiza a compra dos itens do carrinho e por fim salva ela no histórico</li>
   <li>"/update-caixa" - Atualiza o status do carrinho especificado pelo IP para o status passado na requisição</li>
   <li>"/update-carrinho" - Atualiza os itens do carrinho especificado pelo IP para o passado na requisição</li>
 </ol>
+
   Essas rotas de requisições são utilizadas pelo segundo nível da rede: o servidor intermediário. Neste nível fica um programa responsável por conectar cada um dos caixas ao database, realizando as requisições e devolvendo os dados para quem os solicitou através de uma conexão socket TCP/IP. A existencia desse servidor intermediário tem como finalidade facilitar e organizar melhor o controle dos caixas e simplificar todas as requisições necessárias para cada operação. As rotas GET de histórico de compras, carrinhos atuais, caixas e a de POST de atualizar o status do carrinho não são utilizadas pelo servidor intermediário pois são rotas de administração do sistema. Por não ser o foco do problema, ficou acordado com os tutores que essas rotas seriam acessadas através softwares de teste de API como Postman e Insomnia. Ainda no nível intermediário existe o leitor de indentificação de radiofrequencia (RFID) acoplado a uma placa Raspberry Pi que é responsável por ler as tags e envia-las para o caixa conectado a ele através também de uma conexão socket TCP/IP.
+  
   No nível mais baixo da rede estão os caixas, estes separados cada um em uma maquina diferente. Como dito anteriormente, cada caixa realiza duas conexões socket: uma com o servidor intermediário e a outra, quando necessário, com o leitor RFID. Os caixas tem a função de coletar as tags dos produtos lidos, solicitar os dados ao servidor intermediário exibir as informações de cada um deles. Além disso, tem a função de enviar os produtos do carrinho ao servidor intermediário, solicitar a compra e exibir se ela foi realizada ou não.
 </p>
 
@@ -75,3 +78,14 @@ Uma das limitações fisicas da construção do problema é que no laboratório 
   - Caixas (Cliente.py)
 aa
 </p>
+
+# 4. Considerações finais
+<p style="text-align: justify;">
+  a
+</p>
+
+# 5. Referencias
+<p style="text-align: justify;">
+  a
+</p>
+
