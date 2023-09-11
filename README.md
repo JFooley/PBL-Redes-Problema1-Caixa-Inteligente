@@ -1,7 +1,8 @@
 <div align="center">
   <h1>
     Universidade Estadual de Feira de Santana (UEFS)
-    
+  </h1>
+  <h1>
     Problema 1: Supermercado inteligente
   </h1>
 
