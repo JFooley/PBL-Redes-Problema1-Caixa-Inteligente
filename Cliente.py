@@ -35,7 +35,7 @@ def ouvirResponse():
     total = 0
     print('Carrinho: ')
     for item in carrinho:
-        print(item['nome'])
+        print(f"{item['nome']} - {item['preco']} R$")
         total += item['preco']
     print(f'----------------------\nTotal: {total} R$')
 
