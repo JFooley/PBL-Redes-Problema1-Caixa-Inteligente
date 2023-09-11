@@ -12,6 +12,7 @@
     DEPARTAMENTO DE TECNOLOGIA
     TEC502 - CONCORRÊNCIA E CONECTIVIDADE
   </p>
+</div>
 
 # 1. Introdução
 <p style="text-align: justify;">
