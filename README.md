@@ -61,7 +61,6 @@
 # 3. Resultados
 <p style="text-align: justify;">
   Ao final do desenvolvimento, o sistema ficou dividido em 4 programas que realizam a função dos 4 nós propostos na arquitetura do sistema.
-  - 
   - Servidor intermediário (Server.py)
   Como a quantidade de caixas é pequena foi decidido utilizar multithreading para que cada caixa tenha sua própria thread cuidando das operações solicitadas. Dessa forma, uma thread principal roda um servidor socket que fica aguardando por conexões advindas dos caixas, quando essas solicitações de conexões chegam o programa verifica se aquele caixa solicitante está desbloqueado e cria uma nova thread dedicada apenas para ele, onde as requisições são feitas. Por uma questão de depuração e melhor visualização das operações do servidor intermediário, o programa imprime no terminal um chatlog monstrando todas as novas conexões de caixas, as mensagens trocadas (com qual caixa e o conteúdo), desconexões e o motivo delas. A imagem abaixo mostra um exemplo do chatlog durante a operação do sistema.
   (ADICIONAR IMAGEM DO LOG)
