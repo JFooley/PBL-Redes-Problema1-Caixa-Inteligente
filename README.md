@@ -1,7 +1,8 @@
 <div align="center">
   <h1>
-    Universidade Estadual de Feira de Santana (UEFS)
-    Problema 1: Supermercado inteligente
+  Universidade Estadual de Feira de Santana (UEFS)
+
+  Problema 1: Supermercado inteligente
   </h1>
 
   <h3>
@@ -9,8 +10,9 @@
   </h3>
 
   <p>
-    DEPARTAMENTO DE TECNOLOGIA
-    TEC502 - CONCORRÊNCIA E CONECTIVIDADE
+  DEPARTAMENTO DE TECNOLOGIA
+    
+  TEC502 - CONCORRÊNCIA E CONECTIVIDADE
   </p>
 </div>
 
@@ -76,8 +78,11 @@ a
   - Servidor intermediário (Server.py)
   
 Como a quantidade de caixas é pequena foi decidido utilizar multithreading para que cada caixa tenha sua própria thread cuidando das operações solicitadas. Dessa forma, uma thread principal roda um servidor socket que fica aguardando por conexões advindas dos caixas, quando essas solicitações de conexões chegam o programa verifica se aquele caixa solicitante está desbloqueado e cria uma nova thread dedicada apenas para ele, onde as requisições são feitas. Por uma questão de depuração e melhor visualização das operações do servidor intermediário, o programa imprime no terminal um chatlog monstrando todas as novas conexões de caixas, as mensagens trocadas (com qual caixa e o conteúdo), desconexões e o motivo delas. A imagem abaixo mostra um exemplo do chatlog durante a operação do sistema.
-  (ADICIONAR IMAGEM DO LOG)
-  
+</p>
+
+![Logchat do Servidor Intermediário](https://github.com/JFooley/PBL1---Redes/blob/e01096c0298b7ce453b347df55f350463f1a452b/Imagens/Server.png)
+
+<p style="text-align: justify;">
   - O leitor RFID (Reader.py)
 
 Uma das limitações fisicas da construção do problema é que no laboratório existe apenas um leitor RFID, por esse motivo a operação do leitor foi desenvolvida da seguinte forma: o leitor possui um server socket que fica aguardando por conexões dentro de um looping; quando uma nova solicitação de conexão chega de um caixa o programa aceita, realiza a leitura de todas as tags RFID no alcance do sensor, envia para o caixa solicitante a lista com as tags e logo em seguida fecha a conexão. Dessa forma, o leitor fica alocado a um caixa apenas durante a leitura das tags, podendo atender a qualquer caixa do sistema quando não estiver em uso.
