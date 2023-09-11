@@ -93,7 +93,7 @@ Uma das limitações fisicas da construção do problema é que no laboratório 
 
   - Caixas (Cliente.py)
 
-aa
+O caixa 
 </p>
 
 # 4. Considerações finais
