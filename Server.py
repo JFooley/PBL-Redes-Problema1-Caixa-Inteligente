@@ -10,7 +10,6 @@ def handleSolicitacoes(socketDiretoCliente, enderecoCliente):
         # Busca todas as conexões atuais
         conexoes = requests.get(ipDatabase + 'caixas')
         conexoesJson = conexoes.json()
-        print(conexoesJson)
 
         # Verifica se aquela conexão não existe na lista
         if enderecoCliente[0] not in list(conexoesJson.keys()):
@@ -100,10 +99,10 @@ while loop:
     # Aceita a conexão do cliente
     socketDiretoCliente, enderecoCliente = socketServer.accept()
     print(f'Conexão com o cliente {enderecoCliente} aceita')
-    print('Caixas ativos:', len(threadsClientes))
 
     # Cria uma thread específica 
     threadCliente = threading.Thread(target=handleSolicitacoes, args=(socketDiretoCliente, enderecoCliente))
     threadCliente.start()
 
     threadsClientes.append(threadCliente)
+    print('Caixas ativos:', len(threadsClientes))
