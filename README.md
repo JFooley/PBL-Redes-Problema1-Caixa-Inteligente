@@ -65,6 +65,10 @@
 # 3. Resultados
 <p style="text-align: justify;">
   Ao final do desenvolvimento, o sistema ficou dividido em 4 programas que realizam a função dos 4 nós propostos na arquitetura do sistema.
+
+  - Banco de dados (Database.py)
+
+a
   
   - Servidor intermediário (Server.py)
   
@@ -76,6 +80,7 @@ Como a quantidade de caixas é pequena foi decidido utilizar multithreading para
 Uma das limitações fisicas da construção do problema é que no laboratório existe apenas um leitor RFID, por esse motivo a operação do leitor foi desenvolvida da seguinte forma: o leitor possui um server socket que fica aguardando por conexões dentro de um looping; quando uma nova solicitação de conexão chega de um caixa o programa aceita, realiza a leitura de todas as tags RFID no alcance do sensor, envia para o caixa solicitante a lista com as tags e logo em seguida fecha a conexão. Dessa forma, o leitor fica alocado a um caixa apenas durante a leitura das tags, podendo atender a qualquer caixa do sistema quando não estiver em uso.
 
   - Caixas (Cliente.py)
+
 aa
 </p>
 
