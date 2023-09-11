@@ -40,11 +40,13 @@
   No nível mais alto da rede está o banco de dados que guarda todas as informações utilizadas na operação dos caixas. Ele é responsável por fornecer, através de requisições HTTP, os dados para os níveis abaixo do sistema e receber as solicitações para modificação e criação dos mesmos. Os dados guardados são: estoque de produtos, contendo cada produto com seu respectivo código de tag RFID, preço e quantidade; caixas, que possui endereço de IP de cada caixa conectado a rede e seu status de bloqueio ou não; carrinhos, contendo o endereço IP de cada caixa conectado e os itens atuais presentes no carrinho daquele caixa; compras, que possui o histórico de todas as compras realizadas em todos os caixas em lista, contendo a data da compra e os itens do carrinho. 
   Seguindo o modelo de requisições HTTP, foram implementados 5 rotas do tipo GET e 3 rotas do tipo POST, sendo elas:
   - GET
-</p>
 <ol>
   <li>"/" - Lista o estoque de produtos</li>
   <li>"/:ID" - Lista as informações do estoque do produto especificado pelo ID passado como parametro</li>
   <li>"/compras" - Lista o histórico de compras</li>
   <li>"/carrinhos" - Lista os caixas e os seus respectivos carrinhos no momento da requisição</li>
   <li>"/caixas" - Lista todos os caixas e seus estados de bloqueio</li>
+  - POST
 </ol>
+</p>
+
