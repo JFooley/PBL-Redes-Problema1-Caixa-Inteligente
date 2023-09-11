@@ -73,14 +73,18 @@
 
   - Banco de dados (Database.py)
 
-a
-  
+O nó do banco de dados foi implementado utilizando o módulo http.server nativo do Python. Nele é executado um servidor HTTP que chama os métodos da classe APIHandler, onde estão os métodos GET e POST citados na seção de desenvolvimento. Por não ser o foco do problema, apesar do nome, o banco de dados não é exatamente um banco de dados de armazenamento em massa SQL, apenas listas e dicionários locais na memória que guardam os dados do sistema mas que exercem papel semelhante para o finalidade do problema que é a comunicação em rede. Ainda sim, para evitar quebra da integridade dos dados devido ao paralelismo foi necessário a implementação de zona crítica na parte do código que realiza as alterações propriamente. A imagem abaixo mostra um exemplo do chatlog gerado pelo terminal do banco de dados durante a operação do sistema.
+</p>
+
+![Chatlog do banco de dados](https://github.com/JFooley/PBL1---Redes/blob/c6e6cae130db4d0e58de4db5f632ed59e80fe40c/Imagens/Database.png)
+
+<p style="text-align: justify;">
   - Servidor intermediário (Server.py)
   
 Como a quantidade de caixas é pequena foi decidido utilizar multithreading para que cada caixa tenha sua própria thread cuidando das operações solicitadas. Dessa forma, uma thread principal roda um servidor socket que fica aguardando por conexões advindas dos caixas, quando essas solicitações de conexões chegam o programa verifica se aquele caixa solicitante está desbloqueado e cria uma nova thread dedicada apenas para ele, onde as requisições são feitas. Por uma questão de depuração e melhor visualização das operações do servidor intermediário, o programa imprime no terminal um chatlog monstrando todas as novas conexões de caixas, as mensagens trocadas (com qual caixa e o conteúdo), desconexões e o motivo delas. A imagem abaixo mostra um exemplo do chatlog durante a operação do sistema.
 </p>
 
-![Logchat do Servidor Intermediário](https://github.com/JFooley/PBL1---Redes/blob/e01096c0298b7ce453b347df55f350463f1a452b/Imagens/Server.png)
+![Chatlog do servidor intermediário](https://github.com/JFooley/PBL1---Redes/blob/e01096c0298b7ce453b347df55f350463f1a452b/Imagens/Server.png)
 
 <p style="text-align: justify;">
   - O leitor RFID (Reader.py)
