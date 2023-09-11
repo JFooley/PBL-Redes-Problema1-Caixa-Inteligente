@@ -100,6 +100,7 @@ while loop:
     # Aceita a conexão do cliente
     socketDiretoCliente, enderecoCliente = socketServer.accept()
     print(f'Conexão com o cliente {enderecoCliente} aceita')
+    print('Caixas ativos:', len(threadsClientes))
 
     # Cria uma thread específica 
     threadCliente = threading.Thread(target=handleSolicitacoes, args=(socketDiretoCliente, enderecoCliente))
