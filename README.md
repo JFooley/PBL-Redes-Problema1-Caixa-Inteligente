@@ -1,9 +1,8 @@
 <div align="center">
   <h1>
-    Universidade Estadual de Feira de Santana (UEFS)
-  </h1>
-  <h1>
-    Problema 1: Supermercado inteligente
+  Universidade Estadual de Feira de Santana (UEFS)
+
+  Problema 1: Supermercado inteligente
   </h1>
 
   <h3>
@@ -11,8 +10,9 @@
   </h3>
 
   <p>
-    DEPARTAMENTO DE TECNOLOGIA
-    TEC502 - CONCORRÊNCIA E CONECTIVIDADE
+  DEPARTAMENTO DE TECNOLOGIA
+    
+  TEC502 - CONCORRÊNCIA E CONECTIVIDADE
   </p>
 </div>
 
