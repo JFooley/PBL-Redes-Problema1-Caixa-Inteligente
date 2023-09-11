@@ -40,6 +40,7 @@
   
   No nível mais alto da rede está o banco de dados que guarda todas as informações utilizadas na operação dos caixas. Ele é responsável por fornecer, através de requisições HTTP, os dados para os níveis abaixo do sistema e receber as solicitações para modificação e criação dos mesmos. Os dados guardados são: estoque de produtos, contendo cada produto com seu respectivo código de tag RFID, preço e quantidade; caixas, que possui endereço de IP de cada caixa conectado a rede e seu status de bloqueio ou não; carrinhos, contendo o endereço IP de cada caixa conectado e os itens atuais presentes no carrinho daquele caixa; compras, que possui o histórico de todas as compras realizadas em todos os caixas em lista, contendo a data da compra e os itens do carrinho. 
   Seguindo o modelo de requisições HTTP, foram implementados 5 rotas do tipo GET e 3 rotas do tipo POST, sendo elas:
+  
   - GET
 <ol>
   <li>"/" - Lista o estoque de produtos</li>
@@ -61,11 +62,14 @@
 # 3. Resultados
 <p style="text-align: justify;">
   Ao final do desenvolvimento, o sistema ficou dividido em 4 programas que realizam a função dos 4 nós propostos na arquitetura do sistema.
+  
   - Servidor intermediário (Server.py)
+  
 Como a quantidade de caixas é pequena foi decidido utilizar multithreading para que cada caixa tenha sua própria thread cuidando das operações solicitadas. Dessa forma, uma thread principal roda um servidor socket que fica aguardando por conexões advindas dos caixas, quando essas solicitações de conexões chegam o programa verifica se aquele caixa solicitante está desbloqueado e cria uma nova thread dedicada apenas para ele, onde as requisições são feitas. Por uma questão de depuração e melhor visualização das operações do servidor intermediário, o programa imprime no terminal um chatlog monstrando todas as novas conexões de caixas, as mensagens trocadas (com qual caixa e o conteúdo), desconexões e o motivo delas. A imagem abaixo mostra um exemplo do chatlog durante a operação do sistema.
   (ADICIONAR IMAGEM DO LOG)
   
   - O leitor RFID (Reader.py)
+
 Uma das limitações fisicas da construção do problema é que no laboratório existe apenas um leitor RFID, por esse motivo a operação do leitor foi desenvolvida da seguinte forma: o leitor possui um server socket que fica aguardando por conexões dentro de um looping; quando uma nova solicitação de conexão chega de um caixa o programa aceita, realiza a leitura de todas as tags RFID no alcance do sensor, envia para o caixa solicitante a lista com as tags e logo em seguida fecha a conexão. Dessa forma, o leitor fica alocado a um caixa apenas durante a leitura das tags, podendo atender a qualquer caixa do sistema quando não estiver em uso.
 
   - Caixas (Cliente.py)
