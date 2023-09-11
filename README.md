@@ -111,6 +111,6 @@ O caixa
 
   socket — Interface de rede de baixo nível. Python Software Foundation. 2023. Disponível em: https://docs.python.org/pt-br/3/library/socket.html Acesso em: 24 de agosto de 2023.
 
-  Requests: HTTP for Humans. Requests. Disponível em: https://requests.readthedocs.io/en/latest/ Acesso em: 24 de agosto de 2023.
+  Requests: HTTP for Humans. Requests. 2023. Disponível em: https://requests.readthedocs.io/en/latest/ Acesso em: 24 de agosto de 2023.
 </p>
 
