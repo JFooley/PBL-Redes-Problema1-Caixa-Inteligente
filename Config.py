@@ -5,7 +5,9 @@ portaRFID = 2598
 
 hostRFIDcliente = '172.16.103.0' 
 
+# Servidor no computador 1
 hostServidor = '172.16.103.1'
 portaServidor = 1234
 
+# Database no computador 2
 ipDatabase = 'http://172.16.103.2:8000/'
