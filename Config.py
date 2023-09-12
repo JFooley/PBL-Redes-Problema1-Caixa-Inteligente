@@ -8,4 +8,4 @@ hostRFIDcliente = '172.16.103.0'
 hostServidor = '172.16.103.1'
 portaServidor = 1234
 
-ipDatabase = 'http://172.16.103.2/'
+ipDatabase = 'http://172.16.103.2:8000/'
