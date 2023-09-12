@@ -2,7 +2,6 @@ import json
 import sys
 import mercury
 import socket
-from Config import hostRFID, portaRFID
 
 def lerTags(socket):
     epcs = map(lambda tag: tag, reader.read())
@@ -13,7 +12,7 @@ def lerTags(socket):
 
 # Cria o socket e associa a porta e host
 socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socketServer.bind((hostRFID, portaRFID))
+socketServer.bind(('172.16.103.0', 2598))
 socketServer.listen()
 
 # configura a leitura na porta serial onde esta o sensor
