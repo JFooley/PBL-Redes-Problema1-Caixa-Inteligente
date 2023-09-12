@@ -93,12 +93,20 @@ Uma das limitações fisicas da construção do problema é que no laboratório 
 
   - Caixas (Cliente.py)
 
-O caixa 
+Considerando a função prevista do caixa ele foi implementado da seguinte forma: Após se conectar via socket com o servidor intermediário o caixa solicita ao usuário qual operação ele deseja realizar através de um input pelo teclado; o usuário pode escolher ler os produtos ou confirmar a compra, caso escolha por ler os produtos o caixa realiza uma segunda conexão socket com o leitor RFID, recebe a lista contendo todas as tags no alcance do leitor e envia uma a uma para o servidor intermediário que realiza uma requisição do tipo GET com a rota '/(ID da TAG)' e devolve as informações de cada tag. Essas informações são guardadas no carrinho local do caixa, que no final da leitura é enviado para o database para que atualize o seu estado lá. A comunicação entre o caixa e o servidor intermediário é feita sempre utilizando um dicionário com as chaves "Type" e "Content": na primeira chave é mandado o tipo de conteúdo que o caixa está solicitando, se é um código, uma compra ou um update-carrinho; na segunda chave é enviado o conteúdo, que é interpretado de maneira diferente pelo servidor intermediário a depender do tipo passando na chave "Type".
+
+  - Arquivo de configuração
+
+Devido ao python não possuir uma forma de detectar o IP de rede da máquina onde está sendo executado (Apenas o IP local interno dela), foi criado um arquivo de configuração contendo as variáveis de IP e porta do sistema, já que elas variam de acordo com a maquina que o código está sendo executado. Dessa forma, nenhum código precisa ser alterado além do arquivo de configuração quando for executado em uma maquina diferente.
 </p>
 
 # 4. Considerações finais
 <p style="text-align: justify;">
-  a
+  Ao fim, o sistema cumpre todas as funcionalidades propostas pelo problema seguindo também as exigencias e delimitações do mesmo, sendo a unica exceção o requisito de utilizar o serviço de emulação via conteiner Docker. De forma geral, o sistema é capaz de conectar diferentes caixas a rede, realizar leitura dos produtos no alcance do leitor, ver as informações em tempo real e realizar a compra dos produtos, tudo isso com de forma sincronizada sem que haja discrepância nas informações entre os caixas. O banco de dados além de cumprir todas as funções necessárias para a operações dos caixas também oferece interface necessárias para que, através de requisições, o sistema possa ser administrado. A implementação utilizando HTTP server e socket TCP/IP permite que cada um dos nós da arquitetura possam ser executados em diferentes computadores ou até mesmo em um unico, contanto que todos estejam conectado a mesma rede wifi. Vale ressaltar que o sistema prevê casos como a leitura de tags que não existem no banco de dados
+
+  Com relação a parte acadêmica do desenvolvimento, o sistema proposto foi capaz de criar uma compreensão do funcionamento de redes de computadores, comunicação entre diferentes processos independente de linguagem ou hardware através de Socket e também do funcionamento de um servidor HTTP e as questões que permeam esse tipo de tecnologia. Além disso, a construção da rede permitiu compreender o funcionamento da arquitetura TCP/IP, como funcionam as suas diferentes camadas e compreenssão de como funciona a implementação de um protocolo baseado em API REST. A utilização do leitor RFID destacou a importancia da implementação de arquitetura IoT e utilização de harware "não convencional" que fuja do que normalmente é utilizado em um computador. 
+
+  Falando em questão de possiveis melhorias o sistema no sistema, a implementação de um SGBD SQL e a adição de interface gráfica são otimas possibilidades de aprimoramento, principalmente para possibilitar o gerenciamento de forma mais direta sem a necessidade de fazer requisições manuais. Com relação a novas funcionalidades, o sistema poderia incluir novas rotas para possibilitar a alteração das informações dos produtos e até a adição de novos produtos. Outra questão é a adição de novos leitores individuais para cada caixa, permitindo que não 
 </p>
 
 # 5. Referencias
