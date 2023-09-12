@@ -105,4 +105,3 @@ while loop:
     threadCliente.start()
 
     threadsClientes.append(threadCliente)
-    print('Caixas ativos:', len(threadsClientes))
